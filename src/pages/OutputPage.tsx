@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { AlertTriangle, Menu } from 'lucide-react';
+import { AlertTriangle } from 'lucide-react';
 import { patientService } from '../services/patientService';
 import { ragService } from '../services/ragService';
 import { Sidebar } from '../components/patient/Sidebar';

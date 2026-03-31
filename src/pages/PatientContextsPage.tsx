@@ -7,7 +7,7 @@ import { Patient360View } from '../components/patient/Patient360View';
 import { ConflictsView } from '../components/patient/ConflictsView';
 import { EnhancedCodesView } from '../components/patient/EnhancedCodesView';
 import { SourceDocumentsView } from '../components/patient/SourceDocumentsView';
-import { AlertTriangle, Database, Menu } from 'lucide-react';
+import { AlertTriangle, Database } from 'lucide-react';
 
 interface RagBatch {
   id: string;

@@ -50,7 +50,6 @@ describe('userManagementService', () => {
         email: 'newuser@test.com',
         firstName: 'New',
         lastName: 'User',
-        role: 'StandardUser',
       })
 
       expect(result).toBeDefined()
@@ -64,7 +63,6 @@ describe('userManagementService', () => {
           email: 'admin@test.com',
           firstName: 'Dup',
           lastName: 'User',
-          role: 'Admin',
         })
       ).rejects.toThrow('Email already registered')
     })
@@ -81,7 +79,6 @@ describe('userManagementService', () => {
           email: 'fail@test.com',
           firstName: 'Fail',
           lastName: 'User',
-          role: 'StandardUser',
         })
       ).rejects.toThrow()
     })

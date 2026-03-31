@@ -9,7 +9,6 @@ import {
   ResponsiveContainer
 } from 'recharts';
 import { ClinicalChatbot } from './ClinicalChatbot';
-import { patientService } from '../../services/patientService';
 
 interface Patient360ViewProps {
   patientData: any;
@@ -104,7 +103,6 @@ export const Patient360View: React.FC<Patient360ViewProps> = ({ patientData, bat
   const labs = patientData.laboratory_results || [];
   const medications = patientData.medications || [];
   const allergies = patientData.allergies || [];
-  const procedures = patientData.procedures || [];
   const careTeam = patientData.care_team || [];
   const facilities = patientData.facilities || [];
   const plans = patientData.plans_and_followups || [];
@@ -1161,19 +1159,6 @@ export const Patient360View: React.FC<Patient360ViewProps> = ({ patientData, bat
       case 'history': return renderHistoryTab();
       case 'plans': return renderPlansTab();
       default: return renderOverviewTab();
-    }
-  };
-
-  const openPdfViewer = async (documentName: string, page: number, searchText: string) => {
-    if (!batchId) return;
-    setPdfViewerState({ open: true, documentName, page, searchText, blobUrl: '', loading: true });
-    try {
-      const blob = await patientService.viewPdf(batchId, documentName);
-      const blobUrl = URL.createObjectURL(blob);
-      setPdfViewerState(prev => ({ ...prev, blobUrl, loading: false }));
-    } catch (err) {
-      console.error('Error loading PDF:', err);
-      setPdfViewerState(prev => ({ ...prev, loading: false }));
     }
   };
 

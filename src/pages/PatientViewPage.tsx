@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { patientService } from '../services/patientService';
 import { ConsolidatedPatientData, ConflictData, ICD10Code, CPTCode } from '../types/patient';
-import { ArrowLeft, RefreshCw, AlertTriangle, CheckCircle, FileText, User, ChevronDown, ChevronRight, Activity, Pill, TestTube, Stethoscope, Heart, AlertCircle, MessageCircle } from 'lucide-react';
+import { ArrowLeft, AlertTriangle, CheckCircle, FileText, User, ChevronDown, ChevronRight, Activity, Pill, TestTube, Stethoscope, Heart, AlertCircle, MessageCircle } from 'lucide-react';
 import { PatientChatbot } from '../components/PatientChatbot';
 
 export const PatientViewPage: React.FC = () => {
@@ -14,7 +14,6 @@ export const PatientViewPage: React.FC = () => {
   const [icd10Codes, setIcd10Codes] = useState<ICD10Code[]>([]);
   const [cptCodes, setCptCodes] = useState<CPTCode[]>([]);
   const [loading, setLoading] = useState(true);
-  const [loadingCodes, setLoadingCodes] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isConsolidating, setIsConsolidating] = useState(false);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['Demographics']));
@@ -62,19 +61,6 @@ export const PatientViewPage: React.FC = () => {
     }
   };
 
-  const loadMedicalCodes = async (patientId: string) => {
-    try {
-      setLoadingCodes(true);
-      const medicalCodesData = await patientService.getMedicalCodes(patientId);
-      setIcd10Codes(medicalCodesData.medicalCodes.icd10Codes);
-      setCptCodes(medicalCodesData.medicalCodes.cptCodes);
-    } catch (err) {
-      console.error('Failed to load medical codes:', err);
-    } finally {
-      setLoadingCodes(false);
-    }
-  };
-
   const handleConsolidate = async () => {
     if (!id) return;
     
@@ -88,11 +74,6 @@ export const PatientViewPage: React.FC = () => {
     } finally {
       setIsConsolidating(false);
     }
-  };
-
-  const formatDate = (dateString?: string) => {
-    if (!dateString) return 'Never';
-    return new Date(dateString).toLocaleString();
   };
 
   const toggleSection = (sectionKey: string) => {
@@ -432,12 +413,6 @@ export const PatientViewPage: React.FC = () => {
                         <p className="text-sm text-blue-600">{icd10Codes.length} diagnoses coded</p>
                       </div>
                     </div>
-                    {loadingCodes && (
-                      <div className="flex items-center text-sm text-blue-600">
-                        <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                        Loading codes...
-                      </div>
-                    )}
                   </div>
                 </div>
                 <div className="overflow-x-auto">
@@ -477,12 +452,6 @@ export const PatientViewPage: React.FC = () => {
                         <p className="text-sm text-green-600">{cptCodes.length} procedures coded</p>
                       </div>
                     </div>
-                    {loadingCodes && (
-                      <div className="flex items-center text-sm text-green-600">
-                        <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                        Loading codes...
-                      </div>
-                    )}
                   </div>
                 </div>
                 <div className="overflow-x-auto">

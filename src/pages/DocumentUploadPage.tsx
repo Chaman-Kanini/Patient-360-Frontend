@@ -12,7 +12,6 @@ export const DocumentUploadPage: React.FC = () => {
   const [uploadProgress, setUploadProgress] = useState<UploadProgress[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [currentPatientContextId, setCurrentPatientContextId] = useState<string | null>(null);
   const uploadAbortControllerRef = useRef<AbortController | null>(null);
 
   const handleFilesSelected = useCallback((files: File[]) => {
@@ -79,11 +78,6 @@ export const DocumentUploadPage: React.FC = () => {
               : p
           )
         );
-
-        // Capture patient context ID if available in the response
-        if (result.documents[0]?.patientContextId) {
-          setCurrentPatientContextId(result.documents[0].patientContextId);
-        }
 
         // Show success message if all files are complete
         setTimeout(() => {
