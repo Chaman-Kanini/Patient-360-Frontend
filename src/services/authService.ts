@@ -32,7 +32,7 @@ apiClient.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
        // Check if this is a login request - don't redirect for login failures
-      const isLoginRequest = error.config?.url?.includes('/auth/login')
+      const isLoginRequest = error.config?.url?.includes('/api/auth/login')
  
       if (!isLoginRequest) {
         // Token expired or invalid - clear local storage
@@ -49,7 +49,7 @@ apiClient.interceptors.response.use(
 export const authService = {
   async login(credentials: LoginRequest): Promise<LoginResponse> {
     try {
-      const response: AxiosResponse<LoginResponse> = await apiClient.post('/auth/login', credentials)
+      const response: AxiosResponse<LoginResponse> = await apiClient.post('/api/auth/login', credentials)
       return response.data
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -62,7 +62,7 @@ export const authService = {
 
   async logout(): Promise<void> {
     try {
-      await apiClient.post('/auth/logout')
+      await apiClient.post('/api/auth/logout')
     } catch (error) {
       // Don't throw error for logout - it should always succeed locally
       console.error('Logout API call failed:', error)
@@ -72,7 +72,7 @@ export const authService = {
   async forgotPassword(email: string): Promise<void> {
     try {
       const request: ForgotPasswordRequest = { email }
-      await apiClient.post('/auth/forgot-password', request)
+      await apiClient.post('/api/auth/forgot-password', request)
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message = error.response?.data?.message || error.message || 'Password reset request failed'
@@ -85,7 +85,7 @@ export const authService = {
   async resetPassword(token: string, newPassword: string, confirmPassword: string): Promise<void> {
     try {
       const request: ResetPasswordRequest = { token, newPassword, confirmPassword }
-      await apiClient.post('/auth/reset-password', request)
+      await apiClient.post('/api/auth/reset-password', request)
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message = error.response?.data?.message || error.message || 'Password reset failed'
@@ -97,7 +97,7 @@ export const authService = {
 
   async validateResetToken(token: string): Promise<boolean> {
     try {
-      const response = await apiClient.get(`/auth/validate-token?token=${encodeURIComponent(token)}`)
+      const response = await apiClient.get(`/api/auth/validate-token?token=${encodeURIComponent(token)}`)
       return response.data.valid
     } catch (error) {
       return false
@@ -106,7 +106,7 @@ export const authService = {
 
   async getCurrentUser(): Promise<any> {
     try {
-      const response = await apiClient.get('/auth/me')
+      const response = await apiClient.get('/api/auth/me')
       return response.data
     } catch (error) {
       if (axios.isAxiosError(error)) {

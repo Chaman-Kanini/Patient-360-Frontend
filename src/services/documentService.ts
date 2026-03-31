@@ -62,7 +62,7 @@ export const documentService = {
       }
 
       const response = await apiClient.post<UploadResult>(
-        `/documents/upload`,
+        `/api/documents/upload`,
         formData,
         {
           headers: {
@@ -210,7 +210,7 @@ export const documentService = {
           success: boolean;
           patientContextId: string;
           message?: string;
-        }>('/patients/consolidate-recent', {
+        }>('/api/patients/consolidate-recent', {
           documentIds: successfulUploads.map(u => u.result!.documents[0].id)
         });
 
@@ -306,7 +306,7 @@ export const documentService = {
       }
 
       const response = await apiClient.post<BatchUploadResult>(
-        `/documents/upload-batch`,
+        `/api/documents/upload-batch`,
         formData,
         {
           headers: {
@@ -394,7 +394,7 @@ export const documentService = {
 
   async getDocuments(): Promise<UploadedDocument[]> {
     try {
-      const response = await apiClient.get<DocumentListResponse>(`/documents`);
+      const response = await apiClient.get<DocumentListResponse>(`/api/documents`);
       return response.data.documents;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -406,7 +406,7 @@ export const documentService = {
 
   async getDocument(id: string): Promise<UploadedDocument> {
     try {
-      const response = await apiClient.get<DocumentResponse>(`/documents/${id}`);
+      const response = await apiClient.get<DocumentResponse>(`/api/documents/${id}`);
       return response.data.document;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -421,7 +421,7 @@ export const documentService = {
 
   async deleteDocument(id: string): Promise<void> {
     try {
-      await apiClient.delete(`/documents/${id}`);
+      await apiClient.delete(`/api/documents/${id}`);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data?.message || 'Failed to delete document');
@@ -433,7 +433,7 @@ export const documentService = {
   async downloadDocument(id: string): Promise<Blob> {
     try {
       const response = await apiClient.get(
-        `/documents/${id}/download`,
+        `/api/documents/${id}/download`,
         {
           responseType: 'blob'
         }

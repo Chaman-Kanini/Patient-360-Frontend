@@ -72,7 +72,7 @@ export const adminDashboardService = {
     if (filter.sortDirection) params.append('sortDirection', filter.sortDirection)
 
     const response: AxiosResponse<PagedAuditLogs> = await adminApi.get(
-      `/admin/audit-logs?${params.toString()}`
+      `/api/admin/audit-logs?${params.toString()}`
     )
     return response.data
   },
@@ -87,47 +87,47 @@ export const adminDashboardService = {
     if (filter.ipAddress) params.append('ipAddress', filter.ipAddress)
 
     const response: AxiosResponse<AuditLog[]> = await adminApi.get(
-      `/admin/audit-logs/export?${params.toString()}`
+      `/api/admin/audit-logs/export?${params.toString()}`
     )
     return response.data
   },
 
   async getDistinctActions(): Promise<string[]> {
-    const response: AxiosResponse<string[]> = await adminApi.get('/admin/audit-logs/actions')
+    const response: AxiosResponse<string[]> = await adminApi.get('/api/admin/audit-logs/actions')
     return response.data
   },
 
   // Dashboard Summary
   async getDashboardSummary(): Promise<DashboardSummary> {
-    const response: AxiosResponse<DashboardSummary> = await adminApi.get('/admin/dashboard/summary')
+    const response: AxiosResponse<DashboardSummary> = await adminApi.get('/api/admin/dashboard/summary')
     return response.data
   },
 
   // User Analytics
   async getUserGrowthTrend(days: number = 30): Promise<UserGrowthTrend[]> {
     const response: AxiosResponse<UserGrowthTrend[]> = await adminApi.get(
-      `/admin/analytics/user-growth?days=${days}`
+      `/api/admin/analytics/user-growth?days=${days}`
     )
     return response.data
   },
 
   async getUsersByDepartment(): Promise<UsersByDepartment[]> {
     const response: AxiosResponse<UsersByDepartment[]> = await adminApi.get(
-      '/admin/analytics/users-by-department'
+      '/api/admin/analytics/users-by-department'
     )
     return response.data
   },
 
   async getUsersByStatus(): Promise<UsersByStatus[]> {
     const response: AxiosResponse<UsersByStatus[]> = await adminApi.get(
-      '/admin/analytics/users-by-status'
+      '/api/admin/analytics/users-by-status'
     )
     return response.data
   },
 
   async getTopUsers(days: number = 30, limit: number = 10): Promise<TopActiveUser[]> {
     const response: AxiosResponse<TopActiveUser[]> = await adminApi.get(
-      `/admin/analytics/top-users?days=${days}&limit=${limit}`
+      `/api/admin/analytics/top-users?days=${days}&limit=${limit}`
     )
     return response.data
   },
@@ -135,42 +135,42 @@ export const adminDashboardService = {
   // Document Analytics
   async getDocumentTrends(days: number = 30): Promise<DocumentUploadTrend[]> {
     const response: AxiosResponse<DocumentUploadTrend[]> = await adminApi.get(
-      `/admin/analytics/document-trends?days=${days}`
+      `/api/admin/analytics/document-trends?days=${days}`
     )
     return response.data
   },
 
   async getDocumentStatus(): Promise<DocumentStatusDistribution[]> {
     const response: AxiosResponse<DocumentStatusDistribution[]> = await adminApi.get(
-      '/admin/analytics/document-status'
+      '/api/admin/analytics/document-status'
     )
     return response.data
   },
 
   async getDocumentTypes(): Promise<DocumentTypeDistribution[]> {
     const response: AxiosResponse<DocumentTypeDistribution[]> = await adminApi.get(
-      '/admin/analytics/document-types'
+      '/api/admin/analytics/document-types'
     )
     return response.data
   },
 
   async getStorageUsage(): Promise<StorageUsage> {
     const response: AxiosResponse<StorageUsage> = await adminApi.get(
-      '/admin/analytics/storage-usage'
+      '/api/admin/analytics/storage-usage'
     )
     return response.data
   },
 
   async getProcessingPerformance(days: number = 30): Promise<ProcessingPerformance[]> {
     const response: AxiosResponse<ProcessingPerformance[]> = await adminApi.get(
-      `/admin/analytics/processing-performance?days=${days}`
+      `/api/admin/analytics/processing-performance?days=${days}`
     )
     return response.data
   },
 
   async getBatchSummary(): Promise<BatchProcessingSummary> {
     const response: AxiosResponse<BatchProcessingSummary> = await adminApi.get(
-      '/admin/analytics/batch-summary'
+      '/api/admin/analytics/batch-summary'
     )
     return response.data
   },
@@ -178,7 +178,7 @@ export const adminDashboardService = {
   // Patient Analytics
   async getPatientConflicts(days: number = 30): Promise<PatientConflictTrend[]> {
     const response: AxiosResponse<PatientConflictTrend[]> = await adminApi.get(
-      `/admin/analytics/patient-conflicts?days=${days}`
+      `/api/admin/analytics/patient-conflicts?days=${days}`
     )
     return response.data
   },
@@ -186,7 +186,7 @@ export const adminDashboardService = {
   // Chatbot Analytics
   async getChatbotUsage(days: number = 30): Promise<ChatbotUsageTrend[]> {
     const response: AxiosResponse<ChatbotUsageTrend[]> = await adminApi.get(
-      `/admin/analytics/chatbot-usage?days=${days}`
+      `/api/admin/analytics/chatbot-usage?days=${days}`
     )
     return response.data
   },
@@ -194,28 +194,28 @@ export const adminDashboardService = {
   // Security Analytics
   async getLoginActivity(days: number = 30): Promise<LoginActivityTrend[]> {
     const response: AxiosResponse<LoginActivityTrend[]> = await adminApi.get(
-      `/admin/analytics/login-activity?days=${days}`
+      `/api/admin/analytics/login-activity?days=${days}`
     )
     return response.data
   },
 
   async getSecurityEvents(days: number = 30): Promise<SecurityEvent[]> {
     const response: AxiosResponse<SecurityEvent[]> = await adminApi.get(
-      `/admin/analytics/security-events?days=${days}`
+      `/api/admin/analytics/security-events?days=${days}`
     )
     return response.data
   },
 
   async getHourlyActivity(days: number = 30): Promise<HourlyActivity[]> {
     const response: AxiosResponse<HourlyActivity[]> = await adminApi.get(
-      `/admin/analytics/hourly-activity?days=${days}`
+      `/api/admin/analytics/hourly-activity?days=${days}`
     )
     return response.data
   },
 
   async getActionBreakdown(days: number = 30): Promise<AuditActionBreakdown[]> {
     const response: AxiosResponse<AuditActionBreakdown[]> = await adminApi.get(
-      `/admin/analytics/action-breakdown?days=${days}`
+      `/api/admin/analytics/action-breakdown?days=${days}`
     )
     return response.data
   },

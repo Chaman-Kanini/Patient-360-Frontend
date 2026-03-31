@@ -50,7 +50,7 @@ export interface ClinicalCodesResponse {
 
 export const clinicalCodesService = {
   async lookupCodes(request: ClinicalCodesLookupRequest): Promise<ClinicalCodesResponse> {
-    const response = await apiClient.post('/clinical-codes/lookup', request);
+    const response = await apiClient.post('/api/clinical-codes/lookup', request);
     return response.data;
   }
 };

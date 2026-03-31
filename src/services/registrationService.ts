@@ -16,7 +16,7 @@ export const registrationService = {
   // Register new user
   async register(request: PublicRegistrationRequest): Promise<RegistrationResult> {
     try {
-      const response: AxiosResponse<RegistrationResult> = await registrationApi.post('/registration/register', request)
+      const response: AxiosResponse<RegistrationResult> = await registrationApi.post('/api/registration/register', request)
       return response.data
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -33,7 +33,7 @@ export const registrationService = {
   async checkEmailAvailability(email: string): Promise<boolean> {
     try {
       const response: AxiosResponse<{ available: boolean }> = await registrationApi.get(
-        `/registration/check-email?email=${encodeURIComponent(email)}`
+        `/api/registration/check-email?email=${encodeURIComponent(email)}`
       )
       return response.data.available
     } catch (error) {

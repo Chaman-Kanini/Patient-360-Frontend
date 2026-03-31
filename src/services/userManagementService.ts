@@ -58,7 +58,7 @@ export const userManagementService = {
       params.append('pageSize', (filter.pageSize || 10).toString())
 
       const response: AxiosResponse<PagedResult<User>> = await userManagementApi.get(
-        `/usermanagement?${params.toString()}`
+        `/api/usermanagement?${params.toString()}`
       )
       return response.data
     } catch (error) {
@@ -72,7 +72,7 @@ export const userManagementService = {
   // Get user by ID
   async getUserById(id: string): Promise<User> {
     try {
-      const response: AxiosResponse<User> = await userManagementApi.get(`/usermanagement/${id}`)
+      const response: AxiosResponse<User> = await userManagementApi.get(`/api/usermanagement/${id}`)
       return response.data
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -85,7 +85,7 @@ export const userManagementService = {
   // Create new user
   async createUser(request: CreateUserRequest): Promise<User> {
     try {
-      const response: AxiosResponse<User> = await userManagementApi.post('/usermanagement/create', request)
+      const response: AxiosResponse<User> = await userManagementApi.post('/api/usermanagement/create', request)
       return response.data
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -98,7 +98,7 @@ export const userManagementService = {
   // Update user
   async updateUser(id: string, request: UpdateUserRequest): Promise<User> {
     try {
-      const response: AxiosResponse<User> = await userManagementApi.put(`/usermanagement/${id}`, request)
+      const response: AxiosResponse<User> = await userManagementApi.put(`/api/usermanagement/${id}`, request)
       return response.data
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -111,7 +111,7 @@ export const userManagementService = {
   // Update user role
   async updateUserRole(id: string, role: 'Admin' | 'StandardUser'): Promise<void> {
     try {
-      await userManagementApi.put(`/usermanagement/${id}/role`, { role })
+      await userManagementApi.put(`/api/usermanagement/${id}/role`, { role })
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data?.message || 'Failed to update user role')
@@ -123,7 +123,7 @@ export const userManagementService = {
   // Deactivate user
   async deactivateUser(id: string, reason: string): Promise<void> {
     try {
-      await userManagementApi.post(`/usermanagement/${id}/deactivate`, { reason })
+      await userManagementApi.post(`/api/usermanagement/${id}/deactivate`, { reason })
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data?.message || 'Failed to deactivate user')
@@ -135,7 +135,7 @@ export const userManagementService = {
   // Reactivate user
   async reactivateUser(id: string): Promise<void> {
     try {
-      await userManagementApi.post(`/usermanagement/${id}/reactivate`)
+      await userManagementApi.post(`/api/usermanagement/${id}/reactivate`)
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data?.message || 'Failed to reactivate user')
@@ -147,7 +147,7 @@ export const userManagementService = {
   // Approve user
   async approveUser(id: string): Promise<User> {
     try {
-      const response: AxiosResponse<User> = await userManagementApi.post(`/usermanagement/${id}/approve`)
+      const response: AxiosResponse<User> = await userManagementApi.post(`/api/usermanagement/${id}/approve`)
       return response.data
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -160,7 +160,7 @@ export const userManagementService = {
   // Reject user
   async rejectUser(id: string, reason: string): Promise<void> {
     try {
-      await userManagementApi.post(`/usermanagement/${id}/reject`, { reason })
+      await userManagementApi.post(`/api/usermanagement/${id}/reject`, { reason })
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw new Error(error.response?.data?.message || 'Failed to reject user')
@@ -172,7 +172,7 @@ export const userManagementService = {
   // Get pending users
   async getPendingUsers(): Promise<User[]> {
     try {
-      const response: AxiosResponse<User[]> = await userManagementApi.get('/usermanagement/pending')
+      const response: AxiosResponse<User[]> = await userManagementApi.get('/api/usermanagement/pending')
       return response.data
     } catch (error) {
       if (axios.isAxiosError(error)) {

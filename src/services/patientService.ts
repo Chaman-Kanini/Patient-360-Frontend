@@ -42,7 +42,7 @@ apiClient.interceptors.response.use(
 export const patientService = {
   async getConsolidatedData(patientId: string): Promise<ConsolidatedPatientData> {
     try {
-      const response = await apiClient.get(`/patient/${patientId}/consolidated-data`);
+      const response = await apiClient.get(`/api/patient/${patientId}/consolidated-data`);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -58,7 +58,7 @@ export const patientService = {
       if (category) params.append('category', category);
       if (severity) params.append('severity', severity);
 
-      const response = await apiClient.get(`/patient/${patientId}/conflicts?${params}`);
+      const response = await apiClient.get(`/api/patient/${patientId}/conflicts?${params}`);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -70,7 +70,7 @@ export const patientService = {
 
   async consolidatePatientData(patientId: string): Promise<any> {
     try {
-      const response = await apiClient.post(`/patient/${patientId}/consolidate`);
+      const response = await apiClient.post(`/api/patient/${patientId}/consolidate`);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -82,7 +82,7 @@ export const patientService = {
 
   async getMedicalCodes(patientId: string): Promise<MedicalCodesResponse> {
     try {
-      const response = await apiClient.get(`/patient/${patientId}/medical-codes`);
+      const response = await apiClient.get(`/api/patient/${patientId}/medical-codes`);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -94,7 +94,7 @@ export const patientService = {
 
   async getRagBatches(): Promise<any> {
     try {
-      const response = await apiClient.get('/patient/rag-batches');
+      const response = await apiClient.get('/api/patient/rag-batches');
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -106,7 +106,7 @@ export const patientService = {
 
   async getRagBatchData(batchId: string): Promise<any> {
     try {
-      const response = await apiClient.get(`/patient/rag-batches/${batchId}`);
+      const response = await apiClient.get(`/api/patient/rag-batches/${batchId}`);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -118,7 +118,7 @@ export const patientService = {
 
   async getRagBatchPdfs(batchId: string): Promise<any> {
     try {
-      const response = await apiClient.get(`/patient/rag-batches/${batchId}/pdfs`);
+      const response = await apiClient.get(`/api/patient/rag-batches/${batchId}/pdfs`);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -131,7 +131,7 @@ export const patientService = {
   async viewPdf(batchId: string, fileName: string): Promise<Blob> {
     try {
       const response = await apiClient.get(
-        `/patient/rag-batches/${batchId}/pdfs/${encodeURIComponent(fileName)}`,
+        `/api/patient/rag-batches/${batchId}/pdfs/${encodeURIComponent(fileName)}`,
         { responseType: 'blob' }
       );
       return response.data;
@@ -146,7 +146,7 @@ export const patientService = {
   async downloadPdf(batchId: string, fileName: string): Promise<Blob> {
     try {
       const response = await apiClient.get(
-        `/patient/rag-batches/${batchId}/pdfs/${encodeURIComponent(fileName)}?download=true`,
+        `/api/patient/rag-batches/${batchId}/pdfs/${encodeURIComponent(fileName)}?download=true`,
         { responseType: 'blob' }
       );
       return response.data;
@@ -160,7 +160,7 @@ export const patientService = {
 
   async askChatbotWithHistory(question: string, batchId?: string): Promise<any> {
     try {
-      const response = await apiClient.post('/patient/chatbot/ask', {
+      const response = await apiClient.post('/api/patient/chatbot/ask', {
         question,
         batchId
       });
@@ -176,7 +176,7 @@ export const patientService = {
   async getChatHistory(batchId?: string): Promise<any> {
     try {
       const params = batchId ? `?batchId=${batchId}` : '';
-      const response = await apiClient.get(`/patient/chatbot/history${params}`);
+      const response = await apiClient.get(`/api/patient/chatbot/history${params}`);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
